@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Slider</title>
+    <style>
+        .container{
+            margin: 20px;
+            display: flex;
+            overflow: hidden;
+        }
+        .cards{
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .card{
+            margin: 20px;
+            text-align: center;
+            width: 200px;
+            padding: 25px 45px;
+            border-radius: 50px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        }
+        button{
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: medium;
+            border-radius: 50px;
+            border: none;
+            background-color: greenyellow;
+        }
+        .buttons{
+            text-align: center;
+        }
+        img{
+            width: 200px;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cards">
+            <div class="card">
+                <img src="images/img1.jpg" alt="Card 1">
+                <h3>Card 1</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img2.jpg" alt="Card 2">
+                <h3>Card 2</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img3.jpg" alt="Card 3">
+                <h3>Card 3</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img4.jpg" alt="Card 4">
+                <h3>Card 4</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img5.jpg" alt="Card 5">
+                <h3>Card 5</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img6.jpg" alt="Card 6">
+                <h3>Card 6</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+            <div class="card">
+                <img src="images/img7.jpg" alt="Card 7">
+                <h3>Card 7</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut dignissimos tempore itaque nisi minima delectus.</p>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button class="navigation-btn" id="startBtn" onclick="start()">start</button>
+        <button class="navigation-btn" id="prev" onclick="navigate(-1)">&lt;</button>
+        <button class="navigation-btn" id="next" onclick="navigate(1)">&gt;</button>
+        <button class="navigation-btn" id="endBtn" onclick="end()">end</button>
+    </div>
+    <script>
+        var container = document.querySelector('.container');
+        var cards = document.querySelector('.cards');
+        var cardWidth = document.querySelector('.card').offsetWidth;
+        var totalCards = document.querySelectorAll('.card').length;
+        var currentIndex = 0;
+        function navigate(direction) {
+            currentIndex += direction;
+            currentIndex = Math.min(Math.max(currentIndex, 0), totalCards - 1);
+            updateCards();
+            console.log(currentIndex);
+        }
+
+        function updateCards() {
+            var translateValue = -currentIndex * cardWidth + 'px';
+            cards.style.transform = 'translateX(' + translateValue + ')';
+            if(currentIndex == totalCards-1){
+            document.getElementById("endBtn").disabled = true;
+            document.getElementById("next").disabled = true;
+            }else{
+                document.getElementById("endBtn").disabled = false;
+                document.getElementById("next").disabled = false;
+            }
+            if(currentIndex > 0){
+                document.getElementById("startBtn").disabled = false;
+                document.getElementById("prev").disabled = false;
+            }else{
+                document.getElementById("startBtn").disabled = true;
+                document.getElementById("prev").disabled = true;
+            }
+        }
+        function start(){
+            if (currentIndex > 0) {
+            currentIndex = 0;
+            }
+            updateCards();
+        }
+        function end(){
+            if (currentIndex != totalCards-1) {
+                currentIndex = totalCards - 1;
+            }
+            updateCards();
+        }
+        if(currentIndex != totalCards-1){
+            document.getElementById("startBtn").disabled = true;
+            document.getElementById("prev").disabled = true;
+        }
+
+    </script>
+</body>
+</html>
